@@ -154,7 +154,10 @@ namespace SisNDragons.Services
 
         #region Private Properties
 
-        private List<BestiarioRecord> _criaturas;
+        /// <summary>
+        /// Propriedade privada que armazenará todos os registros fixos.
+        /// </summary>
+        private readonly List<BestiarioRecord> _criaturas;
 
         #endregion Private Properties
 
@@ -165,8 +168,8 @@ namespace SisNDragons.Services
         /// </summary>
         /// <param name="record">Objeto com as informações vindas do Swagger/Postman</param>
         /// <param name="isUpdate">Informa se estou chamado o método para Create ou Update pois algumas validações só fazem sentido para um ou para outro</param>
-        /// <exception cref="Exception"></exception>
-        private void ValidateParams(BestiarioRecord record, bool isUpdate)
+        /// <exception cref="Exception">Exceções que serão jogadas caso algum dos parâmetros estiver inválido</exception>
+        private static void ValidateParams(BestiarioRecord record, bool isUpdate)
         {
             if (record == null) throw new Exception("Dados inválidos.");
 
@@ -175,7 +178,7 @@ namespace SisNDragons.Services
             if (record.Nome == null) throw new Exception("O campo 'Nome' é obrigatório.");
             if (record.Nivel <= 0) throw new Exception("O campo 'Nível' é obrigatório e não pode ser menor que zero.");
             if (record.NivelPerigo < 0) throw new Exception("O campo 'Nível de Perigo' é obrigatório.");
-            if (record.Raridade <= 0) throw new Exception("O campo 'Raridade' é obrigatório.");
+            if (record.Raridade <= (Raridade)1) throw new Exception("O campo 'Raridade' é obrigatório.");
             if (record.Dano < 0) throw new Exception("O campo 'Dano' é obrigatório e não pode ser menor que zero.");
             if (record.Defesa < 0) throw new Exception("O campo 'Dano' é obrigatório e não pode ser menor que zero.");
 
@@ -185,13 +188,17 @@ namespace SisNDragons.Services
                 if (record.DtRegistro > DateTime.Now) throw new Exception("O campo 'Data de registro' não pode ser uma data futura.");
             }
 
-            if (record.Tipo < 0) throw new Exception("O campo 'Tipo' é obrigatório.");
+            if (record.Tipo < (Tipo)1) throw new Exception("O campo 'Tipo' é obrigatório.");
         }
 
         #endregion Private Methods
 
         #region Public Methods
-        
+
+        /// <summary>
+        /// Este método retornará a lista de registros completa sem filtragem
+        /// </summary>
+        /// <returns>Estrutura <see cref="List{T}"/> com todos os registros</returns>
         public List<BestiarioRecord> GetList()
         {
             try
@@ -204,6 +211,11 @@ namespace SisNDragons.Services
             }
         }
 
+        /// <summary>
+        /// Busca um registro único com base no ID informado
+        /// </summary>
+        /// <param name="id">ID a ser pesquisado</param>
+        /// <returns>Registro do tipo <see cref="BestiarioRecord"/></returns>
         public BestiarioRecord Get(int id)
         {
             try
@@ -219,6 +231,15 @@ namespace SisNDragons.Services
             }
         }
 
+        /// <summary>
+        /// Filtra a lista de criaturas com base em diversos campos opcionais
+        /// </summary>
+        /// <param name="nome">Nome da criatura</param>
+        /// <param name="nivel">Nível da criatura</param>
+        /// <param name="tipo">Tipo da criatura</param>
+        /// <param name="nivelPerigo">Nível de perigo</param>
+        /// <param name="raridade">Raridade</param>
+        /// <returns>Estrutura <see cref="List{T}"/> com todos os registros filtrados ou uma exeção caso não encontre nenhum registro.</returns>
         public List<BestiarioRecord> GetFilter(string? nome, int? nivel, int? tipo, int? nivelPerigo, int? raridade)
         {
             try
@@ -238,6 +259,10 @@ namespace SisNDragons.Services
             }
         }
 
+        /// <summary>
+        /// Cria um registro de criatura na lista já existente.
+        /// </summary>
+        /// <param name="record">Registro preenchido</param>
         public void Create(BestiarioRecord record)
         {
             try
@@ -253,6 +278,10 @@ namespace SisNDragons.Services
             }
         }
 
+        /// <summary>
+        /// Atualiza um registro já existente com base no ID encontrado
+        /// </summary>
+        /// <param name="record">Registro preenchido</param>
         public void Update(BestiarioRecord record)
         {
             try
@@ -282,6 +311,11 @@ namespace SisNDragons.Services
             }
         }
 
+
+        /// <summary>
+        /// Exclui um registro
+        /// </summary>
+        /// <param name="id">ID a ser excluído</param>
         public void Delete(int id)
         {
             try
