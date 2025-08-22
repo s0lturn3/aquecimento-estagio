@@ -169,11 +169,9 @@ namespace SisNDragons.Services
         /// <param name="record">Objeto com as informações vindas do Swagger/Postman</param>
         /// <param name="isUpdate">Informa se estou chamado o método para Create ou Update pois algumas validações só fazem sentido para um ou para outro</param>
         /// <exception cref="Exception">Exceções que serão jogadas caso algum dos parâmetros estiver inválido</exception>
-        private static void ValidateParams(BestiarioRecord record, bool isUpdate)
+        private void ValidateParams(BestiarioRecord record, bool isUpdate)
         {
             if (record == null) throw new Exception("Dados inválidos.");
-
-            if (record.Id <= 0) throw new Exception("O identificador 'ID' não pode estar vazio/zerado.");
 
             if (record.Nome == null) throw new Exception("O campo 'Nome' é obrigatório.");
             if (record.Nivel <= 0) throw new Exception("O campo 'Nível' é obrigatório e não pode ser menor que zero.");
@@ -184,11 +182,23 @@ namespace SisNDragons.Services
 
             if (!isUpdate)
             {
+                if (record.Id <= 0) throw new Exception("O identificador 'ID' não pode estar vazio/zerado em uma atualização.");
+
                 if (record.DtRegistro == null) throw new Exception("O campo 'Data de registro' é obrigatório.");
                 if (record.DtRegistro > DateTime.Now) throw new Exception("O campo 'Data de registro' não pode ser uma data futura.");
             }
 
             if (record.Tipo < (Tipo)1) throw new Exception("O campo 'Tipo' é obrigatório.");
+        }
+
+        /// <summary>
+        /// Puxa o maior ID cadastrado na lista
+        /// </summary>
+        /// <returns>ID mais alto encontrado na lista.</returns>
+        private int GetHighestID()
+        {
+            BestiarioRecord record = _criaturas.MaxBy(e => e.Id);
+            return record.Id;
         }
 
         #endregion Private Methods
@@ -268,6 +278,13 @@ namespace SisNDragons.Services
             try
             {
                 ValidateParams(record, false);
+
+                if (record.Id == 0) record.Id = GetHighestID() + 1;
+
+
+                bool alreadyHasID = _criaturas.FindAll(e => e.Id == record.Id).Count > 0;
+                if (alreadyHasID) throw new Exception("O ID informado já existe na lista, informe outro.");
+
 
                 if (record == null) throw new Exception("Dados inválidos!");
                 _criaturas.Add(record);
