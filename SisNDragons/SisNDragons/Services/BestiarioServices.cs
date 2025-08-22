@@ -178,7 +178,7 @@ namespace SisNDragons.Services
             if (record.Nome == null) throw new Exception("O campo 'Nome' é obrigatório.");
             if (record.Nivel <= 0) throw new Exception("O campo 'Nível' é obrigatório e não pode ser menor que zero.");
             if (record.NivelPerigo < 0) throw new Exception("O campo 'Nível de Perigo' é obrigatório.");
-            if (record.Raridade <= (Raridade)1) throw new Exception("O campo 'Raridade' é obrigatório.");
+            if (record.Raridade < (Raridade)1) throw new Exception("O campo 'Raridade' é obrigatório.");
             if (record.Dano < 0) throw new Exception("O campo 'Dano' é obrigatório e não pode ser menor que zero.");
             if (record.Defesa < 0) throw new Exception("O campo 'Dano' é obrigatório e não pode ser menor que zero.");
 

@@ -2,9 +2,9 @@
 **/dist
 **/.node_modules
 
-Fontes/**/packages/
-Fontes/**/[Bb]in/
-Fontes/**/[Oo]bj/
+**/packages/
+**/[Bb]in/
+**/[Oo]bj/
 
 **/.vs
 **/.vscode
