@@ -199,8 +199,8 @@ namespace SisNDragons.Services
         /// <returns>ID mais alto encontrado na lista.</returns>
         private int GetHighestID()
         {
-            BestiarioRecord record = _criaturas.MaxBy(e => e.Id);
-            return record.Id;
+            BestiarioRecord? record = _criaturas.MaxBy(e => e.Id);
+            return record != null ? record.Id : 0;
         }
 
         #endregion Private Methods
