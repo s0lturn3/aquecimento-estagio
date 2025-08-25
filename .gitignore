@@ -1,0 +1,10 @@
+**/.angular
+**/dist
+**/.node_modules
+
+**/packages/
+**/[Bb]in/
+**/[Oo]bj/
+
+**/.vs
+**/.vscode
