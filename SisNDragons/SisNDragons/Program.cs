@@ -4,7 +4,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-// Esta linha permite que o meu Controller use a mesma instância da minha classe de Services sempre, sem recriar uma nova a cada requisição
+// Esta linha permite que o meu Controller use a mesma instï¿½ncia da minha classe de Services sempre, sem recriar uma nova a cada requisiï¿½ï¿½o
 builder.Services.AddSingleton<BestiarioServices>();
 builder.Services.AddSingleton<PersonagemServices>();
 
