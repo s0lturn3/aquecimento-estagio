@@ -1,0 +1,15 @@
+<header class="header">
+  <h2 class="title">Listagem de criaturas</h2>
+  <div class="actions">
+    <button routerLink="adicionar">Adicionar</button>
+  </div>
+</header>
+
+<div class="list">
+  @for (criatura of listaBestiario; track $index) {
+    <div class="criatura">
+      <h3 class="nome">{{ criatura.nome }} <a class="editar-btn" [routerLink]="[ 'editar', criatura.id ]">Editar</a> </h3>
+      <p class="descricao">{{ criatura.descricao }}</p>
+    </div>
+  }
+</div>

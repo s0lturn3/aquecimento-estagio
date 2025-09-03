@@ -1,0 +1,68 @@
+header {
+  width: 100%;
+  height: fit-content;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 12px 24px;
+
+  button {
+    height: fit-content;
+    padding: 10px 16px;
+    font-size: 16px;
+
+    border: 1px solid #9760FF;
+    border-radius: 12px;
+    background-color: #6624F3;
+    color: white;
+
+    box-shadow: 0px 5px 15px #6a26fe6f;
+    transition: all .2s ease;
+
+    cursor: pointer;
+
+    &:hover {
+      background-color: darken(#6624F3, 10%);
+    }
+  }
+}
+
+
+.list {
+  width: 100%;
+
+  padding: 0 1rem;
+  display: flex;
+  flex-direction: column;
+
+  .criatura {
+    background-color: #f1f1f1;
+    border: 1px solid #D5D5D5;
+    border-radius: 8px;
+    padding: 12px;
+    margin: 12px 0;
+
+    box-shadow: 0 2px 5px darken( #eee, 10%);
+
+    .nome {
+      font-size: 20px;
+      font-weight: bold;
+
+      .editar-btn {
+        text-decoration: none;
+
+        font-weight: bold;
+        font-size: 1rem;
+        color: #6624F3;
+      }
+    }
+
+    .descricao {
+      font-size: 16px;
+      color: #666;
+    }
+  }
+}

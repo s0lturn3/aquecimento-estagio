@@ -1,0 +1,28 @@
+.content {
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+
+  button {
+    height: fit-content;
+    padding: 12px 24px;
+    font-size: 24px;
+
+    border: 2px solid #9760FF;
+    border-radius: 12px;
+    background-color: #6624F3;
+    color: white;
+
+    box-shadow: 0px 5px 15px #6a26fe6f;
+    transition: all .2s ease;
+
+    cursor: pointer;
+
+    &:hover {
+      background-color: darken(#6624F3, 10%);
+      box-shadow: 0px 8px 35px #6a26fe6f;
+    }
+  }
+}
