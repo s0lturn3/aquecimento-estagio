@@ -1,6 +1,6 @@
-@SisNDragons_HostAddress = http://localhost:5057
+@SisNDragons_HostAddress = http://localhost:7124
 
-GET {{SisNDragons_HostAddress}}/weatherforecast/
+GET {{SisNDragons_HostAddress}}/api/bestiario
 Accept: application/json
 
 ###

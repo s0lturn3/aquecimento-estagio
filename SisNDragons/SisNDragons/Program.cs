@@ -2,6 +2,19 @@ using SisNDragons.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// Criem esta variável inicial aqui em cima
+var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+
+// Adicionem este trecho para configurar o CORS para aceitar qualquer origem
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: MyAllowSpecificOrigins,
+        builder =>
+        {
+            builder.WithOrigins("http://localhost:4200");
+        });
+});
+
 // Add services to the container.
 
 // Esta linha permite que o meu Controller use a mesma inst�ncia da minha classe de Services sempre, sem recriar uma nova a cada requisi��o
@@ -23,6 +36,9 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+// Aqui este trecho aplicará as configs de CORS em todos endpoints
+app.UseCors(MyAllowSpecificOrigins);
 
 app.UseAuthorization();
 
